@@ -1,11 +1,13 @@
 from flask import render_template
 from estate_finder import app
+from estate_finder.models import Location
 
 
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    locations = Location.query.all()
+    return render_template('home.html', locations=locations)
 
 
 @app.route('/about')
