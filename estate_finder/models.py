@@ -46,18 +46,18 @@ class PropertAgent(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     contact_info = db.Column(db.String(255), nullable=False)
-    # agent_img = db.Column(db.String(255), nullable=False, default="default.jpg")
+    agent_img = db.Column(db.String(255), nullable=False, default="default.jpg")
     
     def __repr__(self):
-        return f"('{self.name}', '{self.contact_info}')"
+        return f"('{self.name}', '{self.contact_info}', '{self.agent_img}')"
     
 class Testimonials(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     client_name = db.Column(db.String(255), nullable=True)
     testimonial_text = db.Column(db.Text)
-    # client_img = db.Column(db.String(255), nullable=False, default="default.jpg")
+    client_img = db.Column(db.String(255), nullable=False, default="default.jpg")
     property_id = db.Column(db.Integer, db.ForeignKey('property.id'), nullable=False)
     property = db.relationship('Property', backref=db.backref('testimonials', lazy=True))
     
     def __repr__(self):
-        return f"('{self.client_name}', '{self.testimonial_text}', '{self.property}')" 
+        return f"('{self.client_name}', '{self.testimonial_text}', '{self.property}', '{self.client_img}')" 
