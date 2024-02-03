@@ -19,10 +19,12 @@ with app.app_context():
         add_property_type(property_type_name)
 
     # Add properties
-    add_property("House", "Ruiru", "For sell", 1500, 2, 1, 1500.0, "/estate_finder/static/img/property-4.jpg")
-    add_property("Apartment", "Westlands", "For Rent", 2000, 3, 2, 2000.0, "/estate_finder/static/img/property-5.jpg")
-    add_property("Shop", "Karen", "For sell", 1500, 3, 2, 2500.0, "/estate_finder/static/img/property-1.jpg")
-    add_property("Home", "Kilimani", "For Rent", 2000, 4, 2, 4000.0, "/estate_finder/static/img/property-2.jpg")
+    add_property("House", "Ruiru", "For sell", 1500, 2, 1, 1500.0, "img/property-4.jpg")
+    add_property("Apartment", "Westlands", "For Rent", 2000, 3, 2, 2000.0, "img/property-5.jpg")
+    add_property("Shop", "Karen", "For sell", 1500, 3, 2, 2500.0, "img/property-1.jpg")
+    add_property("Home", "Kilimani", "For Rent", 2000, 4, 2, 4000.0, "img/property-2.jpg")
+    
+    Property.query.filter(Property.id <= 4).delete()
     
     # adding property agent
     add_property_agent("Brian Kimurgor", "+25475556667", "default.jpg")

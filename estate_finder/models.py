@@ -6,7 +6,7 @@ class Location(db.Model):
     name = db.Column(db.String(255), nullable=False)
     
     def __repr__(self):
-        return f"('{self.name}')"
+        return f"{self.name}"
     
 
 class PropertyType(db.Model):
@@ -14,7 +14,7 @@ class PropertyType(db.Model):
     name = db.Column(db.String(255), nullable=False)
     
     def __repr__(self):
-        return f"('{self.name}')"
+        return f"{self.name}"
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,14 +31,15 @@ class Property(db.Model):
     
     def __repr__(self):
         return (
-            f"('{self.status}', "
+            f"'{self.status}', "
             f"'{self.size_sqft}', "
             f"'{self.bedrooms}', "
             f"'{self.bathrooms}', "
             f"'{self.price}', "
             f"'{self.property_img}', "
             f"'{self.property_type}', "
-            f"'{self.location}')"
+            f"'{self.location}', "
+            f"'{self.id}'"
         )
 
     
