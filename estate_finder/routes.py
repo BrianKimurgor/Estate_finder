@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect
 from estate_finder import app, db
 from estate_finder.models import Location, Property
-from estate_finder.form import PropertyForm
+from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 
 
 @app.route('/')
@@ -28,6 +28,16 @@ def property_type():
 @app.route('/property-agent')
 def property_agent():
     return render_template('property-agent.html')
+
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
 
 @app.route('/add_property', methods=['GET', 'POST'])
 def add_property():

@@ -443,7 +443,7 @@ form{
     flex-direction: column;
     align-items: center;
     border: 1px solid #00B98E;
-    border-radius: 13%;
+    border-radius: 25%;
 }
 .form-group{
     display: flex;
