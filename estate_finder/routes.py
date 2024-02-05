@@ -4,11 +4,15 @@ from estate_finder.models import Location, Property
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 
 
+
 @app.route('/')
 @app.route('/home')
 def home():
     locations = Location.query.all()
-    return render_template('home.html', locations=locations)
+    prop_type = PropertyType.query.all()
+    properties = Property.query.all()
+    return render_template('home.html', locations=locations,  prop_type=prop_type,
+                           properties=properties)
 
 
 @app.route('/about')
@@ -17,12 +21,14 @@ def about():
 
 @app.route('/property-list')
 def property_list():
-    return render_template('property-list.html')
+    properties = Property.query.all()
+    return render_template('property-list.html', properties=properties)
 
 
 @app.route('/property-type')
 def property_type():
-    return render_template('property-type.html')
+    prop_type = PropertyType.query.all()
+    return render_template('property-type.html', prop_type=prop_type)
 
 
 @app.route('/property-agent')
