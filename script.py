@@ -1,6 +1,6 @@
 from estate_finder import app, db
 from add_to_db import add_location, add_property, add_property_type, add_property_agent, add_testimonial
-from estate_finder.models import Location, PropertyType, Property, PropertAgent, Testimonials
+from estate_finder.models import Location, PropertyType, Property, PropertAgent, Testimonials, User
 
 
 with app.app_context():
@@ -24,7 +24,7 @@ with app.app_context():
     add_property("Shop", "Karen", "For sell", 1500, 3, 2, 2500.0, "img/property-1.jpg")
     add_property("Home", "Kilimani", "For Rent", 2000, 4, 2, 4000.0, "img/property-2.jpg")
 
-    Property.query.filter(Property.id <= 4).delete()
+    # Property.query.filter(Property.id <= 4).delete()
 
     # adding property agent
     add_property_agent("Brian Kimurgor", "+25475556667", "default.jpg")
@@ -73,3 +73,8 @@ with app.app_context():
     testimonials = Testimonials.query.all()
     for testimonial in testimonials:
         print(testimonial)
+    print('\n')
+        
+    users = User.query.all()
+    for user in users:
+        print(user)

@@ -1,9 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField, EmailField,  PasswordField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms import StringField, IntegerField, SubmitField, SelectField, EmailField,  PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from flask_wtf.file import FileField, FileAllowed
+from estate_finder.models import User
 
 class PropertyForm(FlaskForm):
-        propertyImage = StringField('Property Image URL', validators=[DataRequired()])
+        propertyImage = FileField('Property Image URL', validators=[FileAllowed(['jpg', 'png'])])
         propertyStatus = SelectField('Property Status', choices=[('For Rent', 'For Rent'), ('For Sale', 'For Sale')], validators=[DataRequired()])
         propertyType = StringField('Property Type', validators=[DataRequired()])
         propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
@@ -17,9 +19,10 @@ class PropertyForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('email',
                          validators=[DataRequired()])
-    password = StringField('Password',
+    password = PasswordField('Password',
                            validators=[DataRequired()])
-    submit = SubmitField('register')
+    remember = BooleanField('Remember me')
+    submit = SubmitField('login')
 
 
 class RegistrationForm(FlaskForm):
@@ -33,3 +36,16 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(),
                                                  EqualTo('password')])
     submit = SubmitField('register')
+    
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Username already taken.\
+                                  Please choose\
+                                  another username')
+
+    def validate_email(self, email):
+        email = User.query.filter_by(email=email.data).first()
+        if email:
+            raise ValidationError('Email already exists!')
+
