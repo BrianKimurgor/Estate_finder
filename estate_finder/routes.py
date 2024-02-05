@@ -1,6 +1,6 @@
 from flask import render_template, url_for, redirect, flash
 from estate_finder import app, db, bcrypt
-from flask_login import login_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user, login_required
 from estate_finder.models import Location, Property, PropertyType, User
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 
@@ -68,6 +68,12 @@ def login():
         else:
             flash('Login Unsuccessful, Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
 
 @app.route('/add_property', methods=['GET', 'POST'])
 def add_property():
