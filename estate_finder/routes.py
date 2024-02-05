@@ -1,6 +1,6 @@
 from flask import render_template, url_for, redirect
 from estate_finder import app, db
-from estate_finder.models import Location, Property
+from estate_finder.models import Location, Property, PropertyType
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 
 
