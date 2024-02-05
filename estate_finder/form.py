@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField, EmailField,  PasswordField, FileField
+from wtforms import StringField, IntegerField, SubmitField, SelectField, EmailField,  PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_wtf.file import FileField, FileAllowed
 from estate_finder.models import User
@@ -19,8 +19,9 @@ class PropertyForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('email',
                          validators=[DataRequired()])
-    password = StringField('Password',
+    password = PasswordField('Password',
                            validators=[DataRequired()])
+    remember = BooleanField('Remember me')
     submit = SubmitField('login')
 
 
