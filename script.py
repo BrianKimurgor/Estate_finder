@@ -1,6 +1,11 @@
 from estate_finder import app, db
+<<<<<<< HEAD
 from add_to_db import *
 from estate_finder.models import Location, PropertyType, Property, PropertAgent, Testimonials, User
+=======
+from add_to_db import add_location, add_property, add_property_type, add_property_agent, add_testimonial
+from estate_finder.models import Location, PropertyType, Property, PropertAgent, Testimonials
+>>>>>>> b4fc5c52d123115ffd5c2b89e995f4a5cb9ec6a3
 
 
 with app.app_context():
@@ -23,14 +28,20 @@ with app.app_context():
     add_property("Apartment", "Westlands", "For Rent", 2000, 3, 2, 2000.0, "img/property-5.jpg")
     add_property("Shop", "Karen", "For sell", 1500, 3, 2, 2500.0, "img/property-1.jpg")
     add_property("Home", "Kilimani", "For Rent", 2000, 4, 2, 4000.0, "img/property-2.jpg")
+<<<<<<< HEAD
     
     # Property.query.filter(Property.id <= 4).delete()
     
+=======
+
+    Property.query.filter(Property.id <= 4).delete()
+
+>>>>>>> b4fc5c52d123115ffd5c2b89e995f4a5cb9ec6a3
     # adding property agent
     add_property_agent("Brian Kimurgor", "+25475556667", "default.jpg")
     add_property_agent("Jackson Maina", "+2547222333", "default.jpg")
     add_property_agent("Brenda Timina", "+254666554", "default.jpg")
-    
+
     # adding client testimonials
     property_obj = Property.query.filter_by(location_id=1).first()
     add_testimonial("John Doe", "Great property!", "john_doe.jpg", property_obj)
@@ -40,16 +51,16 @@ with app.app_context():
     add_testimonial("Mirriam Njagi", "I really enjoyed staying", "Mirriam.jpg", property_obj)
     property_obj = Property.query.filter_by(location_id=3).first()
     add_testimonial("Esther Auma", "Great property!", "auma.jpg", property_obj)
-    
-    
+
+
     """Location.query.delete()
     PropertyType.query.delete()
     Property.query.delete()
     PropertAgent.query.delete()
     Testimonials.query.delete()"""
-    
+
     db.session.commit()
-    
+
     locations = Location.query.all()
     for location in locations:
         print(location)
@@ -64,12 +75,12 @@ with app.app_context():
     for prop in properties:
         print(prop)
     print('\n')
-    
+
     agents = PropertAgent.query.all()
     for agent in agents:
         print(agent)
     print('\n')
-    
+
     testimonials = Testimonials.query.all()
     for testimonial in testimonials:
         print(testimonial)
