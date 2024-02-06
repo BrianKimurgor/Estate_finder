@@ -14,6 +14,7 @@ class PropertyForm(FlaskForm):
         propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
         propertyBedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
         propertyBathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
+        submit = SubmitField('Add ')
 
 
 class LoginForm(FlaskForm):
@@ -36,7 +37,7 @@ class RegistrationForm(FlaskForm):
                                      validators=[DataRequired(),
                                                  EqualTo('password')])
     submit = SubmitField('register')
-    
+
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user:
@@ -48,4 +49,3 @@ class RegistrationForm(FlaskForm):
         email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('Email already exists!')
-
