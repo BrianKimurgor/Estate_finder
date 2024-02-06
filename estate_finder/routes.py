@@ -1,4 +1,6 @@
-from flask import render_template, url_for, redirect, flash
+from flask import render_template, url_for, redirect, flash, request
+from werkzeug.utils import secure_filename
+import os
 from estate_finder import app, db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
 from estate_finder.models import Location, Property, PropertyType, User
@@ -66,7 +68,7 @@ def login():
             login_user(user, remember=form.remember.data)
             return redirect(url_for('home'))
         else:
-            flash('Login Unsuccessful, Please check email and password', 'danger')
+            flash('Login Unsuccessful, Please check email and password', "danger")
     return render_template('login.html', title='Login', form=form)
 
 @app.route('/logout')
@@ -76,8 +78,26 @@ def logout():
 
 
 @app.route('/add_property', methods=['GET', 'POST'])
+@login_required
 def add_property():
     form = PropertyForm()
+    if form.validate_on_submit():
+        # Fetch the PropertyType instance based on the selected type name
+        property_type = PropertyType.query.filter_by(name=form.property_type.data).first()
+        location = Location.query.filter_by(name=form.propertyLocation.data).first()
+        if property_type and location:
+            prop = Property(property_type=property_type,
+                            status=form.propertyStatus.data,
+                            location=location,
+                            size_sqft=form.propertySize.data,
+                            bedrooms=form.propertyBedrooms.data,
+                            bathrooms=form.propertyBathrooms.data,
+                            price=form.propertyPrice.data,
+                            property_img=form.propertyImage.data)
+            db.session.add(prop)
+            db.session.commit()
+            flash("Property added successfully", "success")
+            return redirect(url_for('property_list'))
     return render_template('add_property.html', form=form)
 
 
