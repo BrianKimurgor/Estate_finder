@@ -38,16 +38,16 @@
             <!-- property status end -->
 
             <!-- property type  -->
-            {{ form.propertyType.label(class="form-control-label") }}
-            {% if form.propertyType.errors %}
-                {{form.propertyType(class="form-control form-control-lg is-invalid")}}
+            {{ form.property_type.label(class="form-control-label") }}
+            {% if form.property_type.errors %}
+                {{form.property_type(class="form-control form-control-lg is-invalid")}}
                 <div class="invalid-feedback">
-                    {% for error in form.propertyType.errors %}
+                    {% for error in form.property_type.errors %}
                         <span>{{ error }}</span>
                     {% endfor %}
                 </div>
             {% else %}
-            {{ form.propertyType(class="form-control form-control-lg") }}
+            {{ form.property_type(class="form-control form-control-lg") }}
             {% endif %}
             <!-- property type  end -->
 
@@ -66,17 +66,6 @@
             <!-- property price end -->
 
             <!-- property name  -->
-            {{ form.propertyName.label(class="form-control-label") }}
-            {% if form.propertyName.errors %}
-                {{form.propertyName(class="form-control form-control-lg is-invalid")}}
-                <div class="invalid-feedback">
-                    {% for error in form.propertyName.errors %}
-                        <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-            {% else %}
-            {{ form.propertyName(class="form-control form-control-lg") }}
-            {% endif %}
             <!-- property name end -->
 
             <!-- property location  -->

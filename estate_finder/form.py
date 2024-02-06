@@ -7,9 +7,8 @@ from estate_finder.models import User
 class PropertyForm(FlaskForm):
         propertyImage = FileField('Property Image URL', validators=[FileAllowed(['jpg', 'png'])])
         propertyStatus = SelectField('Property Status', choices=[('For Rent', 'For Rent'), ('For Sale', 'For Sale')], validators=[DataRequired()])
-        propertyType = StringField('Property Type', validators=[DataRequired()])
+        property_type = StringField('Property Type', validators=[DataRequired()])
         propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
-        propertyName = StringField('Property Name', validators=[DataRequired()])
         propertyLocation = StringField('Property Location', validators=[DataRequired()])
         propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
         propertyBedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
