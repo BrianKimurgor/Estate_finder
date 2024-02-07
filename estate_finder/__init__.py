@@ -10,10 +10,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///storage.db'
 db = SQLAlchemy(app)
 
 app.config['SECRET_KEY'] = 'your-secret-key'
-app.config['UPLOAD_FOLDER'] = '/Estate_finder/img/'
+# app.config['UPLOAD_FOLDER'] = '/Estate_finder/img/'
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'uploads')
+app.config['MAX_CONTENT_LENGTH'] =  16 *  1024 *  1024  # Limit to  16MB
 app.config['STATIC_FOLDER'] = '/estate_finder/static/'
 app.config['ALLOWED_EXTENSIONS'] = {'jpg', 'png', 'jpeg'}
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=30)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.',  1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
