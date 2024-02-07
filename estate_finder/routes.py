@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, flash, request
+from flask import render_template, url_for, redirect, flash, request,send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from estate_finder import app, db, bcrypt
@@ -86,6 +86,14 @@ def add_property():
         property_type = PropertyType.query.filter_by(name=form.property_type.data).first()
         location = Location.query.filter_by(name=form.propertyLocation.data).first()
         if property_type and location:
+            if form.propertyImage.data:
+                filename = secure_filename(form.propertyImage.data.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                form.propertyImage.data.save(file_path)
+                image_filename = filename  # Store this in the database
+            else:
+                image_filename = None  # No image uploaded
+
             prop = Property(property_type=property_type,
                             status=form.propertyStatus.data,
                             location=location,
@@ -93,12 +101,16 @@ def add_property():
                             bedrooms=form.propertyBedrooms.data,
                             bathrooms=form.propertyBathrooms.data,
                             price=form.propertyPrice.data,
-                            property_img=form.propertyImage.data)
+                            property_img=image_filename)
             db.session.add(prop)
             db.session.commit()
             flash("Property added successfully", "success")
             return redirect(url_for('property_list'))
     return render_template('add_property.html', form=form)
+
+@app.route('/uploads/<filename>')
+def serve_uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 @app.route('/testimonial')
