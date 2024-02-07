@@ -54,6 +54,9 @@
         ]
     });
 
+    $(".close").on("click", function () {
+        $(this).closest(".alert").toggle();
+    });
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
