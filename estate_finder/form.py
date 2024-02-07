@@ -5,9 +5,22 @@ from flask_wtf.file import FileField, FileAllowed
 from estate_finder.models import User
 
 class PropertyForm(FlaskForm):
-        propertyImage = FileField('Property Image URL', validators=[FileAllowed(['jpg', 'png'])])
-        propertyStatus = SelectField('Property Status', choices=[('For Rent', 'For Rent'), ('For Sale', 'For Sale')], validators=[DataRequired()])
-        property_type = StringField('Property Type', validators=[DataRequired()])
+        propertyImage = FileField(
+             'Property Image URL', validators=[FileAllowed(['jpg', 'png'])])
+        propertyStatus = SelectField(
+             'Property Status', choices=[
+                  ('For Rent', 'For Rent'),
+                  ('For Sale', 'For Sale')], validators=[DataRequired()])
+        property_type = SelectField(
+             'Property Type', choices=[
+                  ('Apartment', 'Apartment'),
+                  ('Villa', 'Villa'),
+                  ('Home', 'Home'),
+                  ('Building', 'Building'),
+                  ('Office', 'Office'),
+                  ('Townhouse', 'Townhouse'),
+                  ('Shop', 'Shop'),
+                  ('Garage', 'Garage')], validators=[DataRequired()])
         propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
         propertyLocation = StringField('Property Location', validators=[DataRequired()])
         propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
