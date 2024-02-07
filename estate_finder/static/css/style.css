@@ -115,6 +115,25 @@
     color: var(--primary);
 }
 
+.alert{
+    position: relative;
+    max-width: 400px;
+    margin: 30px auto;
+    width: 100%;
+    flex: 1 0 auto;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+.alert .close{
+    display: flex;
+    flex-direction: end;
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+}
+
+
 @media (max-width: 991.98px) {
     .nav-bar {
         margin: 0;

@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect, flash, request,send_from_directory
+from flask import render_template, url_for, redirect, flash, request, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from estate_finder import app, db, bcrypt
@@ -106,6 +106,8 @@ def add_property():
             db.session.commit()
             flash("Property added successfully", "success")
             return redirect(url_for('property_list'))
+        else:
+            flash("Invalid Property Type or Location", "danger")
     return render_template('add_property.html', form=form)
 
 @app.route('/uploads/<filename>')
