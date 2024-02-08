@@ -87,21 +87,30 @@ def add_property():
         location = Location.query.filter_by(name=form.propertyLocation.data).first()
         if property_type and location:
             if form.propertyImage.data:
-                filename = secure_filename(form.propertyImage.data.filename)
+                # Save the image file
+                image = form.propertyImage.data
+                filename = secure_filename(image.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                form.propertyImage.data.save(file_path)
-                image_filename = filename  # Store this in the database
-            else:
-                image_filename = None  # No image uploaded
+                
+                try:
+                    image.save(file_path)
+                except Exception as e:
+                    flash(f"Error saving file: {str(e)}", "danger")
+                    return redirect(url_for('add_property'))
 
-            prop = Property(property_type=property_type,
-                            status=form.propertyStatus.data,
-                            location=location,
-                            size_sqft=form.propertySize.data,
-                            bedrooms=form.propertyBedrooms.data,
-                            bathrooms=form.propertyBathrooms.data,
-                            price=form.propertyPrice.data,
-                            property_img=image_filename)
+            else:
+                filename = None
+
+            prop = Property(
+                property_type=property_type,
+                status=form.propertyStatus.data,
+                location=location,
+                size_sqft=form.propertySize.data,
+                bedrooms=form.propertyBedrooms.data,
+                bathrooms=form.propertyBathrooms.data,
+                price=form.propertyPrice.data,
+                property_img=filename  # Save the image filename in the database
+            )
             db.session.add(prop)
             db.session.commit()
             flash("Property added successfully", "success")
@@ -109,6 +118,7 @@ def add_property():
         else:
             flash("Invalid Property Type or Location", "danger")
     return render_template('add_property.html', form=form)
+
 
 @app.route('/uploads/<filename>')
 def serve_uploaded_file(filename):
