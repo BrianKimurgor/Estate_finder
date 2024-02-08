@@ -78,7 +78,7 @@ def logout():
 
 
 @app.route('/add_property', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def add_property():
     form = PropertyForm()
     if form.validate_on_submit():
