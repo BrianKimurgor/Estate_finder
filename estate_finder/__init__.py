@@ -6,7 +6,7 @@ from flask_login import LoginManager
 from datetime import timedelta
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///storage.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///newone.db'
 db = SQLAlchemy(app)
 
 app.config['SECRET_KEY'] = 'your-secret-key'
