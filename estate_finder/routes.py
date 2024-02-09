@@ -13,7 +13,10 @@ from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 def home():
     locations = Location.query.all()
     prop_type = PropertyType.query.all()
-    properties = Property.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 6
+    properties = Property.query.order_by(Property.id.desc()).\
+        paginate(page=page, per_page=per_page)
     return render_template('home.html', locations=locations,  prop_type=prop_type,
                            properties=properties)
 
@@ -24,8 +27,16 @@ def about():
 
 @app.route('/property-list')
 def property_list():
-    properties = Property.query.all()
-    return render_template('property-list.html', properties=properties)
+    locations = Location.query.all()
+    prop_type = PropertyType.query.all()
+    page = request.args.get('page', 1, type=int)
+    per_page = 6
+    properties = Property.query.order_by(Property.id.desc()).\
+        paginate(page=page, per_page=per_page)
+    return render_template('property-list.html',
+                           properties=properties,
+                           locations=locations,
+                           props=prop_type)
 
 
 @app.route('/property-type')

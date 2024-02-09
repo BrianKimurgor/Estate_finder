@@ -523,6 +523,13 @@
     background-size: cover;
     height: 300px;
 }
+.col-12 .btn-info{
+    background-color: rgb(10, 155, 75);;
+}
+
+.col-12 .btn:hover{
+    background-color: (10, 155, 75);
+}
 
 .dropdown {
     position: relative;
