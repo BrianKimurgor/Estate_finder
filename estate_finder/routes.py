@@ -66,7 +66,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password,
                                                form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            return redirect(url_for('add_property'))
         else:
             flash('Login Unsuccessful, Please check email and password', "danger")
     return render_template('login.html', title='Login', form=form)
@@ -78,7 +78,7 @@ def logout():
 
 
 @app.route('/add_property', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def add_property():
     form = PropertyForm()
     if form.validate_on_submit():
