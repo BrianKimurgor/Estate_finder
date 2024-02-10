@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 from estate_finder import app, db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
-from estate_finder.models import Location, Property, PropertyType, User
+from estate_finder.models import Location, Property, PropertyType, User, PropertAgent, Testimonials
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 
 
@@ -13,12 +13,16 @@ from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 def home():
     locations = Location.query.all()
     prop_type = PropertyType.query.all()
+    agents = PropertAgent.query.all()
     page = request.args.get('page', 1, type=int)
     per_page = 6
     properties = Property.query.order_by(Property.id.desc()).\
         paginate(page=page, per_page=per_page)
-    return render_template('home.html', locations=locations,  prop_type=prop_type,
-                           properties=properties)
+    return render_template('home.html',
+                           locations=locations,
+                           prop_type=prop_type,
+                           properties=properties,
+                           agents=agents)
 
 
 @app.route('/about')
@@ -42,12 +46,16 @@ def property_list():
 @app.route('/property-type')
 def property_type():
     prop_type = PropertyType.query.all()
-    return render_template('property-type.html', prop_type=prop_type)
+    locations = Location.query.all()
+    return render_template('property-type.html',
+                           locations=locations,
+                           props=prop_type)
 
 
 @app.route('/property-agent')
 def property_agent():
-    return render_template('property-agent.html')
+    agents = PropertAgent.query.all()
+    return render_template('property-agent.html', agents=agents)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -138,7 +146,8 @@ def serve_uploaded_file(filename):
 
 @app.route('/testimonial')
 def testimonial():
-    return render_template('testimonial.html')
+    quotes = Testimonials.query.all()
+    return render_template('testimonial.html', quotes=quotes)
 
 @app.route('/404')
 def not_found():
