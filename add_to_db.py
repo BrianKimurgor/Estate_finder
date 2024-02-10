@@ -76,3 +76,21 @@ def add_testimonial(client_name, testimonial_text, client_img, property_obj):
             property=property_obj
         )
         db.session.add(testimonials)
+
+def update_agent_image(agent_id, agent_img):
+    agent = PropertAgent.query.get(agent_id)
+    if agent:
+        agent.agent_img = agent_img
+        db.session.commit()
+        print(f"Agent {agent_id} updated successfully with new image: {agent_img}")
+    else:
+        print(f"Agent with ID {agent_id} not found.")
+
+def update_testimonial_image(testimonial_id, testimonial_img):
+    testimonial = Testimonials.query.get(testimonial_id)
+    if testimonial:
+        testimonial.client_img = testimonial_img
+        db.session.commit()
+        print(f"Testimonial {testimonial_id} updated successfully with new image: {testimonial_img}")
+    else:
+        print(f"Testimonial with ID {testimonial_id} not found.")

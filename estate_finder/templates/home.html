@@ -63,94 +63,19 @@
                 From modern apartments to cozy family homes, find the perfect space that resonates with your aspirations and comfort.</p>
         </div>
         <div class="row g-4">
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-apartment.png') }}" alt="Icon">
+            {% for prop in prop_type %}
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                        <div class="rounded p-4">
+                            <div class="icon mb-3">
+                                <img class="img-fluid" src="{{ url_for('static', filename='img/icon-apartment.png') }}" alt="Icon">
+                            </div>
+                            <h6>{{ prop.name }}</h6>
+                            <span>123 Properties</span>
                         </div>
-                        <h6>Apartment</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-villa.png') }}" alt="Icon">
-                        </div>
-                        <h6>Villa</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-house.png') }}" alt="Icon">
-                        </div>
-                        <h6>Home</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-housing.png') }}" alt="Icon">
-                        </div>
-                        <h6>Office</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-building.png') }}" alt="Icon">
-                        </div>
-                        <h6>Building</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-neighborhood.png') }}" alt="Icon">
-                        </div>
-                        <h6>Townhouse</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-condominium.png') }}" alt="Icon">
-                        </div>
-                        <h6>Shop</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="{{ url_for('static', filename='img/icon-luxury.png') }}" alt="Icon">
-                        </div>
-                        <h6>Garage</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -186,7 +111,6 @@
                     {% for property in properties %}
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="property-item rounded overflow-hidden">
-
                                 <div class="position-relative overflow-hidden">
                                     {% if property.property_img.startswith('img/') %}
                                         <a href=""><img class="img-fluid" src="{{ url_for('static', filename=property.property_img) }}" alt=""></a>
@@ -210,7 +134,17 @@
                         </div>
                     {% endfor %}
                     <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary py-3 px-5" href="{{url_for('property_list')}}">Browse More Property</a>
+                        {% for page_num in properties.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                            {% if page_num %}
+                                {% if properties.page == page_num %}
+                                    <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                                {% else %}
+                                    <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                                {% endif %}
+                            {% else %}
+                                ...
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -225,71 +159,24 @@
             <h1 class="mb-3">Property Agents</h1>
             <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="{{ url_for('static', filename='img/team-1.jpg') }}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+        <div class="row g-5">
+            {% for agent in agents %}
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="{{url_for('static',filename=agent.agent_img)}}" alt="">
+                            <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="text-center p-4 mt-3">
+                            <h5 class="fw-bold mb-0">{{ agent.name }}</h5>
                         </div>
                     </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="{{ url_for('static', filename='img/team-2.jpg') }}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="{{ url_for('static', filename='img/team-3.jpg') }}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="{{ url_for('static', filename='img/team-4.jpg') }}" alt="">
-                        <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4 mt-3">
-                        <h5 class="fw-bold mb-0">Full Name</h5>
-                        <small>Designation</small>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
