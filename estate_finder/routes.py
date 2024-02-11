@@ -6,6 +6,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from estate_finder.models import Location, Property, PropertyType, User, PropertAgent, Testimonials
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 from collections import defaultdict
+from sqlalchemy import func
 
 
 
@@ -175,8 +176,40 @@ from sqlalchemy.orm import joinedload
 @app.route('/properties_by_type/<property_type_name>')
 def properties_by_type(property_type_name):
     # Query properties based on the property type's name using a join
-    properties = Property.query.join(Property.property_type).filter(PropertyType.name == property_type_name).options(joinedload(Property.property_type)).all()
+    properties = Property.query.join(Property.property_type).\
+        filter(PropertyType.name == property_type_name).\
+            options(joinedload(Property.property_type)).all()
     if not properties:
         return redirect(url_for('not_found'))
     return render_template('properties_by_type.html', properties=properties)
 
+
+@app.route('/filter-by-status/<status>')
+def filter_by_status(status):
+    print(f"Filtering properties by status: {status}")  # Add this print statement
+
+    # Query properties based on the provided status (case-insensitive)
+    properties = Property.query.filter(func.lower(Property.status) == func.lower(status)).all()
+
+    print(f"Found {len(properties)} properties")  # Add this print statement
+
+    # You may want to handle the case when no properties are found for the given status
+
+    locations = Location.query.all()
+    prop_type = PropertyType.query.all()
+
+    return render_template('property_list_status.html',
+                           properties=properties,
+                           locations=locations,
+                           props=prop_type)
+    
+@app.route('/property-details/<int:property_id>')
+def property_details(property_id):
+    # Fetch the property based on the property_id
+    property = Property.query.get(property_id)
+
+    if property:
+        return render_template('property_details.html', property=property)
+    else:
+        # Handle the case when the property is not found
+        return render_template('404.html')

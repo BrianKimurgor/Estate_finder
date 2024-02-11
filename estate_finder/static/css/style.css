@@ -298,6 +298,12 @@
     transition: .5s;
 }
 
+.property-item .img-fluid{
+    width: 100%;
+    background-size: cover;
+    height: 400px;
+}
+
 .property-item:hover img {
     transform: scale(1.1);
 }
