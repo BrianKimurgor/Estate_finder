@@ -65,13 +65,13 @@
         <div class="row g-4">
             {% for prop in prop_type %}
                 <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                    <a class="cat-item d-block bg-light text-center rounded p-3" href="{{url_for('properties_by_type', property_type_name=prop.name)}}">
                         <div class="rounded p-4">
                             <div class="icon mb-3">
                                 <img class="img-fluid" src="{{ url_for('static', filename='img/icon-apartment.png') }}" alt="Icon">
                             </div>
                             <h6>{{ prop.name }}</h6>
-                            <span>123 Properties</span>
+                            <span>{{ count[prop.name] }}</span>
                         </div>
                     </a>
                 </div>
