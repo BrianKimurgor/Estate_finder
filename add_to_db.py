@@ -94,3 +94,14 @@ def update_testimonial_image(testimonial_id, testimonial_img):
         print(f"Testimonial {testimonial_id} updated successfully with new image: {testimonial_img}")
     else:
         print(f"Testimonial with ID {testimonial_id} not found.")
+        
+def update_property_status(property_id, new_status):
+    property_obj = Property.query.get(property_id)
+    if property_obj:
+        property_obj.status = new_status
+        
+        db.session.commit()
+        
+        print(f"Property status updated. Property ID: {property_id}, New Status: {new_status}")
+    else:
+        print(f"Property not found with ID: {property_id}")
