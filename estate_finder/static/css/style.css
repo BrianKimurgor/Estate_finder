@@ -312,6 +312,12 @@
     height: 400px;
 }
 
+@media (max-width: 980px) {
+    .property-item .img-fluid {
+        height: 300px;
+    }
+}
+
 .property-item:hover img {
     transform: scale(1.1);
 }
