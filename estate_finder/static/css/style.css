@@ -117,13 +117,15 @@
 
 .alert{
     position: relative;
-    max-width: 400px;
-    margin: 30px auto;
+    max-width: 600px;
+    width: 100%;
+    margin: 15px auto;
     width: 100%;
     flex: 1 0 auto;
     padding: 6px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .alert .close{
     display: flex;
