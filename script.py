@@ -1,5 +1,5 @@
 from estate_finder import app, db
-from add_to_db import add_location, add_property, add_property_type, add_property_agent, add_testimonial, update_agent_image, update_testimonial_image
+from add_to_db import add_location, add_property, add_property_type, add_property_agent, add_testimonial, update_agent_image, update_testimonial_image, update_property_status
 from estate_finder.models import Location, PropertyType, Property, PropertAgent, Testimonials, User
 
 
@@ -58,6 +58,9 @@ with app.app_context():
     Property.query.delete()
     PropertAgent.query.delete()
     Testimonials.query.delete()"""
+    
+    update_property_status(1, 'For Sale')
+    update_property_status(3, 'For Sale')
 
     db.session.commit()
 
