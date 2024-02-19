@@ -1,13 +1,22 @@
-from flask import render_template, url_for, redirect, flash, request, send_from_directory
+from flask import (
+    render_template,
+    url_for,
+    redirect,
+    flash,
+    request, send_from_directory
+)
 from werkzeug.utils import secure_filename
 import os
 from estate_finder import app, db, bcrypt
 from flask_login import login_user, logout_user, current_user, login_required
-from estate_finder.models import Location, Property, PropertyType, User, PropertAgent, Testimonials
+from estate_finder.models import (
+    Location, Property,
+    PropertyType, User,
+    PropertAgent, Testimonials
+)
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 from collections import defaultdict
 from sqlalchemy import func
-
 
 
 @app.route('/')
@@ -20,12 +29,12 @@ def home():
     per_page = 6
     properties = Property.query.order_by(Property.id.desc()).\
         paginate(page=page, per_page=per_page)
-    
+
     properties_2 = Property.query.all()
     count = defaultdict(int)
     for prop in properties_2:
         count[prop.property_type.name] += 1
-        
+
     return render_template('home.html',
                            locations=locations,
                            prop_type=prop_type,
@@ -37,6 +46,7 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
 
 @app.route('/property-list')
 def property_list():
@@ -71,6 +81,7 @@ def property_agent():
     agents = PropertAgent.query.all()
     return render_template('property-agent.html', agents=agents)
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -101,8 +112,11 @@ def login():
             login_user(user, remember=form.remember.data)
             return redirect(url_for('add_property'))
         else:
-            flash('Login Unsuccessful, Please check email and password', "danger")
+            flash(
+                'Login Unsuccessful, Please check email and password',
+                "danger")
     return render_template('login.html', title='Login', form=form)
+
 
 @app.route('/logout')
 def logout():
@@ -116,15 +130,17 @@ def add_property():
     form = PropertyForm()
     if form.validate_on_submit():
         # Fetch the PropertyType instance based on the selected type name
-        property_type = PropertyType.query.filter_by(name=form.property_type.data).first()
-        location = Location.query.filter_by(name=form.propertyLocation.data).first()
+        property_type = PropertyType.query.filter_by(
+            name=form.property_type.data).first()
+        location = Location.query.filter_by(
+            name=form.propertyLocation.data).first()
         if property_type and location:
             if form.propertyImage.data:
                 # Save the image file
                 image = form.propertyImage.data
                 filename = secure_filename(image.filename)
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                
+
                 try:
                     image.save(file_path)
                 except Exception as e:
@@ -142,7 +158,8 @@ def add_property():
                 bedrooms=form.propertyBedrooms.data,
                 bathrooms=form.propertyBathrooms.data,
                 price=form.propertyPrice.data,
-                property_img=filename  # Save the image filename in the database
+                property_img=filename
+                # Save the image filename in the database
             )
             db.session.add(prop)
             db.session.commit()
@@ -163,22 +180,26 @@ def testimonial():
     quotes = Testimonials.query.all()
     return render_template('testimonial.html', quotes=quotes)
 
+
 @app.route('/404')
 def not_found():
     return render_template('404.html')
+
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
+
 from sqlalchemy.orm import joinedload
+
 
 @app.route('/properties_by_type/<property_type_name>')
 def properties_by_type(property_type_name):
     # Query properties based on the property type's name using a join
     properties = Property.query.join(Property.property_type).\
         filter(PropertyType.name == property_type_name).\
-            options(joinedload(Property.property_type)).all()
+        options(joinedload(Property.property_type)).all()
     if not properties:
         return redirect(url_for('not_found'))
     return render_template('properties_by_type.html', properties=properties)
@@ -186,14 +207,16 @@ def properties_by_type(property_type_name):
 
 @app.route('/filter-by-status/<status>')
 def filter_by_status(status):
-    print(f"Filtering properties by status: {status}")  # Add this print statement
+    print(f"Filtering properties by status: {status}")
+    # Add this print statement
 
-    # Query properties based on the provided status (case-insensitive)
-    properties = Property.query.filter(func.lower(Property.status) == func.lower(status)).all()
+    # Query properties based on provided status (case-insensitive)
+    properties = Property.query.filter(func.lower(
+        Property.status) == func.lower(status)).all()
 
     print(f"Found {len(properties)} properties")  # Add this print statement
 
-    # You may want to handle the case when no properties are found for the given status
+# You may want to handle the case when no properties are found for given status
 
     locations = Location.query.all()
     prop_type = PropertyType.query.all()
@@ -202,7 +225,8 @@ def filter_by_status(status):
                            properties=properties,
                            locations=locations,
                            props=prop_type)
-    
+
+
 @app.route('/property-details/<int:property_id>')
 def property_details(property_id):
     # Fetch the property based on the property_id

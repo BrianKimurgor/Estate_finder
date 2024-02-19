@@ -1,4 +1,32 @@
-# Start by importing necessary modules and creating the Flask app and SQLAlchemy instance
+"""
+This script is responsible for setting up initial data in the estate_finder
+application's database. It imports the necessary modules and Flask
+app instance,as well as the SQLAlchemy database instance and the
+models for `Location`, `PropertyType`, and `Property`.
+
+The script then enters the application context using `with app.app_context():`
+to ensure that the database operations are performed within the correct
+context. This is a necessary step when using Flask's application
+context to interact with the database.
+
+Within the context, the script creates instances of `Location`, `PropertyType`
+models, representing two different cities and two types of properties.
+These instances are added to the database session and committed, which
+saves them to the database.
+
+Next, the script creates instances of `Property`, linking each property to a
+`Location` and a `PropertyType`.These properties represent real estate listings
+with details such as image file names,status (for sale or for rent),size,number
+of bedrooms and bathrooms, and price.The properties are also added to database
+session and committed.
+
+Finally, the script prints a confirmation message indicating that the data has
+been added successfully. This output can be useful for verifying the script
+has run without errors and that the initial data has been populated expected.
+"""
+
+
+# importing necessary modules,  creating the Flask app and SQLAlchemy instance
 from estate_finder import app, db
 from estate_finder.models import Location, PropertyType, Property
 
