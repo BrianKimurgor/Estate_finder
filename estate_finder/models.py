@@ -73,11 +73,7 @@ class PropertAgent(db.Model):
         db.String(255), nullable=False, default="default.jpg")
 
     def __repr__(self):
-        return f"(
-            '{self.id}',
-            '{self.name}',
-            '{self.contact_info}',
-            '{self.agent_img}')"
+        return f"('{self.id}', '{self.name}', '{self.contact_info}', '{self.agent_img}')"
 
 
 class Testimonials(db.Model):
@@ -92,9 +88,4 @@ class Testimonials(db.Model):
         'Property', backref=db.backref('testimonials', lazy=True))
 
     def __repr__(self):
-        return f"(
-            '{self.id}',
-            '{self.client_name}',
-            '{self.testimonial_text}',
-            '{self.property}',
-            '{self.client_img}')"
+        return f"( '{self.id}', '{self.client_name}', '{self.testimonial_text}', '{self.property}', '{self.client_img}')"
