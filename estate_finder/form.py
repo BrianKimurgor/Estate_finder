@@ -1,17 +1,26 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField, EmailField,  PasswordField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import (
+    StringField,
+    IntegerField,
+    SubmitField,
+    SelectField, EmailField,
+    PasswordField, BooleanField
+)
+from wtforms.validators import (
+    DataRequired, Length, Email, EqualTo, ValidationError
+)
 from flask_wtf.file import FileField, FileAllowed
 from estate_finder.models import User
 
+
 class PropertyForm(FlaskForm):
-        propertyImage = FileField(
+    propertyImage = FileField(
              'Property Image URL', validators=[FileAllowed(['jpg', 'png'])])
-        propertyStatus = SelectField(
+    propertyStatus = SelectField(
              'Property Status', choices=[
                   ('For Rent', 'For Rent'),
                   ('For Sale', 'For Sale')], validators=[DataRequired()])
-        property_type = SelectField(
+    property_type = SelectField(
              'Property Type', choices=[
                   ('Apartment', 'Apartment'),
                   ('Villa', 'Villa'),
@@ -41,19 +50,17 @@ class PropertyForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email = StringField('email',
-                         validators=[DataRequired()])
-    password = PasswordField('Password',
-                           validators=[DataRequired()])
+                        validators=[DataRequired()])
+    password = PasswordField(
+         'Password', validators=[DataRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField('login')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('username',
-                         validators=[DataRequired(),
-                                     Length(min=2, max=20)])
-    email = EmailField('email',
-                       validators=[DataRequired()])
+    username = StringField(
+         'username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = EmailField('email', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(),
