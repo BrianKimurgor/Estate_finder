@@ -30,17 +30,22 @@ class PropertyForm(FlaskForm):
                   ('Townhouse', 'Townhouse'),
                   ('Shop', 'Shop'),
                   ('Garage', 'Garage')], validators=[DataRequired()])
-    propertyPrice = StringField(
-             'Property Price(KSH)', validators=[DataRequired()])
-    propertyLocation = StringField(
-             'Property Location', validators=[DataRequired()])
-    propertySize = IntegerField(
-             'Property Size (Sqft)', validators=[DataRequired()])
-    propertyBedrooms = IntegerField(
-             'Number of Bedrooms', validators=[DataRequired()])
-    propertyBathrooms = IntegerField(
-             'Number of Bathrooms', validators=[DataRequired()])
-    submit = SubmitField('Add ')
+        propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
+        propertyLocation = SelectField(
+             'Property Type', choices=[
+                  ('Ruiru', 'Ruiru'),
+                  ('Westlands', 'Westlands'),
+                  ('Karen', 'Karen'),
+                  ('Kilimani', 'Kilimani'),
+                  ('Muthaiga', 'Muthaiga'),
+                  ('Parklands', 'Parklands'),
+                  ('Kahawa', 'Kahawa'),
+                  ('Kasarani', 'Kasarani'),
+                  ('Utawala', 'Utawala')], validators=[DataRequired()])
+        propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
+        propertyBedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
+        propertyBathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
+        submit = SubmitField('Add ')
 
 
 class LoginForm(FlaskForm):

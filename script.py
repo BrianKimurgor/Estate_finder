@@ -114,6 +114,11 @@ with app.app_context():
     update_property_status(1, 'For Sale')
     update_property_status(3, 'For Sale')
 
+    # update_property_status(1, 'For Sale')
+    # update_property_status(3, 'For Sale')
+
+    Property.query.filter_by(id=13).delete()
+
     db.session.commit()
 
     locations = Location.query.all()
