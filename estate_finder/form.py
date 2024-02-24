@@ -30,8 +30,8 @@ class PropertyForm(FlaskForm):
                   ('Townhouse', 'Townhouse'),
                   ('Shop', 'Shop'),
                   ('Garage', 'Garage')], validators=[DataRequired()])
-        propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
-        propertyLocation = SelectField(
+    propertyPrice = StringField('Property Price(KSH)', validators=[DataRequired()])
+    propertyLocation = SelectField(
              'Property Type', choices=[
                   ('Ruiru', 'Ruiru'),
                   ('Westlands', 'Westlands'),
@@ -42,10 +42,10 @@ class PropertyForm(FlaskForm):
                   ('Kahawa', 'Kahawa'),
                   ('Kasarani', 'Kasarani'),
                   ('Utawala', 'Utawala')], validators=[DataRequired()])
-        propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
-        propertyBedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
-        propertyBathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
-        submit = SubmitField('Add ')
+    propertySize = IntegerField('Property Size (Sqft)', validators=[DataRequired()])
+    propertyBedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
+    propertyBathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
+    submit = SubmitField('Add ')
 
 
 class LoginForm(FlaskForm):

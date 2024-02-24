@@ -39,16 +39,31 @@
             <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded w-100" src="{{ url_for('static', filename='img/property-6.jpg') }}" alt="">
+                        <img class="img-fluid rounded w-100"
+                            src="{{ url_for('static', filename='img/property-6.jpg') }}" alt="">
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <div class="mb-4">
                             <h1 class="mb-3">Contact With Our Certified Agent</h1>
-                            <p>Experience a modern blend of comfort and sophistication. Temporarily immerse yourself in a realm where authenticity meets luxury, offering a unique space where your needs are met with utmost care and attention.
+                            <p>Experience a modern blend of comfort and sophistication. Temporarily immerse yourself in
+                                a realm where authenticity meets luxury, offering a unique space where your needs are
+                                met with utmost care and attention.
                                 Connect with us today for an unparalleled real estate experience.</p>
                         </div>
-                        <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
-                        <a href="" class="btn btn-dark py-3 px-4"><i class="fa fa-calendar-alt me-2"></i>Get Appoinment</a>
+                        <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Pay Now</a>
+
+                        <!-- Calendly badge widget begin -->
+                        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+                        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"
+                            async></script>
+                        <script
+                            type="text/javascript">window.onload = function () { Calendly.initBadgeWidget({ url: 'https://calendly.com/briankimurgor/real-estate-booking?hide_gdpr_banner=1&primary_color=23eda3', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: undefined }); }</script>
+                        <!-- Calendly badge widget end -->
+
+                        <a href="" class="btn btn-dark py-3 px-4"
+                            onclick="Calendly.showPopupWidget('https://calendly.com/briankimurgor/real-estate-booking?hide_gdpr_banner=1&primary_color=23eda3');return false;"><i
+                                class="fa fa-calendar-alt me-2"></i>Get Appointment</a>
+
                     </div>
                 </div>
             </div>
