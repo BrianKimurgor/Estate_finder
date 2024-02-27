@@ -17,7 +17,6 @@
 7. [License](#license)
 
 ## Introduction
-Provide a brief overview of your real estate web app. Mention its purpose, target audience, and any key goals.
 This is a real estate web app that bring together buyers and sellers of real estates, it offers a medium for
 people to buy and sell any type of house hold, whether by senting or actually selling it.
 
