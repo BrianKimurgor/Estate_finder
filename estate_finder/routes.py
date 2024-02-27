@@ -3,6 +3,7 @@ from flask import (
     url_for,
     redirect,
     flash,
+    jsonify,
     request, send_from_directory
 )
 from werkzeug.utils import secure_filename
@@ -17,7 +18,6 @@ from estate_finder.models import (
 from estate_finder.form import PropertyForm, LoginForm, RegistrationForm
 from collections import defaultdict
 from sqlalchemy import func
-
 
 @app.route('/')
 @app.route('/home')
