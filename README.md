@@ -6,7 +6,6 @@
 3. [Getting Started](#getting-started)
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
-   - [Configuration](#configuration)
 4. [Usage](#usage)
    - [User Roles](#user-roles)
    - [Navigation](#navigation)
@@ -58,34 +57,49 @@ List any software, tools, or dependencies that users need to install before usin
 - then to run the web app ensure you have python3 installed in your system.
 - navigate to the project folder and run
 ```bash
-    python3 run.python3
+    python3 run.py
 ```
 
-### Configuration
-Explain any configuration steps or settings users might need to customize.
-
-## Usage
-Guide users through the main functionalities of your real estate web app.
-
 ### User Roles
-Describe different user roles (buyers, sellers, admins) and their capabilities.
+#### buyers
+they look for a property they like on the web application and click on it,
+on the product info page, they chose to book a session to bargain or just
+purchase it directly
+#### sellers
+they create an account, and then list their estates, location, size, image
+and price, then they wait for a client to want to purchase their estate or
+rent.
+#### admins
+they manage the real estate listings and ensure that once a client books or
+purchases the real estate, the seller is notified immediately, they also ensure
+that an already purchased real estate is not purchased again by another person.
 
 ### Navigation
-Explain the app's navigation structure and key components.
+The app is user friendly and easy to navigate, with each section well explained.
 
 ### Searching for Real Estate
-Provide details on how users can search for real estate listings.
+To search for a real estate, navigate to the property_list tab in the property
+navigation, there you see all the properties listed
 
 ### Buying and Selling
-Walk users through the process of buying or selling real estate on your platform.
+#### Buying
+to buy, navigate to the property_list tab in the property
+navigation, there you see all the properties listed, chose the one you like
+and click on it, it will direct you to a page where you chose to buy or book
+an appointment to bargain.
+#### Selling
+create an account, and start listing your real estate as many as you have.
 
 ## Technologies Used
-List the technologies, frameworks, and languages used in your project.
+HTML, SCSS, JavaScript, Python, Flask, SQLite
 
 ## Contributing
-Include guidelines for others who want to contribute to your project.
-
+To contribute,
+- fork the repository
+- clone to your machine and make necessary improvements
+- push to github
+- generate a pull request
 ## License
-Specify the license under which your project is distributed.
+
 
 ``
